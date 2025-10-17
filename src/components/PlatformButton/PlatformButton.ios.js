@@ -1,17 +1,49 @@
-
 import React from 'react';
 import { TouchableOpacity, Text, StyleSheet } from 'react-native';
-const IOSButton = ({ title, onPress, variant = 'primary', disabled = false }) => {
+
+const IOSButton = ({ title, onPress, variant = 'primary', disabled = false, darkMode = false }) => {
+    const getVariantStyle = () => {
+        if (disabled) return styles.disabled;
+        if (darkMode) {
+            switch (variant) {
+                case 'primary':
+                    return styles.primaryDark;
+                case 'secondary':
+                    return styles.secondaryDark;
+                default:
+                    return styles.primaryDark;
+            }
+        } else {
+            switch (variant) {
+                case 'primary':
+                    return styles.primary;
+                case 'secondary':
+                    return styles.secondary;
+                default:
+                    return styles.primary;
+            }
+        }
+    };
+
+    const getTextStyle = () => {
+        if (darkMode) {
+            return variant === 'secondary' ? styles.secondaryTextDark : styles.primaryText;
+        } else {
+            return variant === 'secondary' ? styles.secondaryText : styles.primaryText;
+        }
+    };
+
     return (
         <TouchableOpacity
-            style={[styles.button, styles[variant], disabled && styles.disabled]}
+            style={[styles.button, getVariantStyle()]}
             onPress={onPress}
             disabled={disabled}
             activeOpacity={0.7}>
-            <Text style={[styles.text, styles[`${variant}Text`]]}>{title}</Text>
+            <Text style={[styles.text, getTextStyle()]}>{title}</Text>
         </TouchableOpacity>
     );
 };
+
 const styles = StyleSheet.create({
     button: {
         paddingVertical: 12,
@@ -31,6 +63,14 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: '#007AFF',
     },
+    primaryDark: {
+        backgroundColor: '#0056B3',
+    },
+    secondaryDark: {
+        backgroundColor: 'transparent',
+        borderWidth: 1,
+        borderColor: '#007AFF',
+    },
     disabled: {
         backgroundColor: '#f2f2f7',
     },
@@ -45,5 +85,9 @@ const styles = StyleSheet.create({
     secondaryText: {
         color: '#007AFF',
     },
+    secondaryTextDark: {
+        color: '#007AFF',
+    },
 });
+
 export default IOSButton;

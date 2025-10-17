@@ -117,12 +117,14 @@ const SettingsScreen = () => {
                         variant="primary"
                         onPress={() => Alert.alert('Success', `${isIOS ? 'iOS' : 'Android'} primary
 button`)}
+                        darkMode={settings.darkMode}
                     />
                     <View style={styles.buttonSpacing} />
                     <PlatformButton
                         title="Secondary Action"
                         variant="secondary"
                         onPress={() => Alert.alert('Info', 'Secondary button pressed')}
+                        darkMode={settings.darkMode}
                     />
                     <View style={styles.buttonSpacing} />
                     <PlatformButton
@@ -142,6 +144,7 @@ button`)}
                                 },
                             ]);
                         }}
+                        darkMode={settings.darkMode}
                     />
                 </View>
             </ScrollView>
